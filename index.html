@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>단어 암기 프로그램</title>
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+  <style>
+    :root{
+      --bg:#f8fafc; /* slate-50 */
+      --panel:#ffffff; /* white */
+      --muted:#64748b; /* slate-500 */
+      --text:#0f172a; /* slate-900 */
+      --accent:#2563eb; /* blue-600 */
+      --danger:#ef4444; /* red-500 */
+      --warn:#f59e0b;  /* amber-500 */
+      --card:#ffffff; /* white */
+      --btn:#eef2f7; /* slate-100 */
+      --btn2:#e2e8f0; /* slate-200 */
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; background:linear-gradient(180deg,var(--bg),#ffffff); color:var(--text);
+      font-family: ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,Noto Sans,Apple Color Emoji,Segoe UI Emoji;
+      line-height:1.6; min-height:100dvh;
+    }
+    header{
+      padding:24px 16px; text-align:center; border-bottom:1px solid #e2e8f0;
+      background:rgba(255,255,255,.8); backdrop-filter: blur(8px);
+    }
+    header h1{margin:0;font-size:clamp(20px,2.8vw,28px); letter-spacing:0.2px}
+    main{max-width:1100px;margin:24px auto; padding:0 16px 48px}
+    .panel{
+      background:var(--panel);
+      border:1px solid #e2e8f0; border-radius:16px; padding:20px; box-shadow: 0 8px 24px rgba(15,23,42,.06);
+    }
+    .row{display:flex; gap:16px; flex-wrap:wrap}
+    .grow{flex:1 1 360px}
+    .controls{display:flex; gap:10px; flex-wrap:wrap}
+    button{
+      border:1px solid #e2e8f0; background:linear-gradient(180deg,#ffffff,var(--btn));
+      color:var(--text); padding:12px 16px; border-radius:12px; cursor:pointer; font-weight:700;
+      transition:.2s transform, .2s box-shadow, .2s background;
+      box-shadow: 0 2px 8px rgba(2,6,23,.05);
+    }
+    button:hover{transform: translateY(-1px); box-shadow: 0 6px 16px rgba(2,6,23,.08)}
+    button.primary{background:linear-gradient(180deg,#3b82f6,#2563eb); border-color:#1d4ed8; color:#ffffff}
+    button.secondary{background:linear-gradient(180deg,#ffffff,var(--btn2));}
+    button.warn{background:linear-gradient(180deg,#fde68a,#f59e0b); border-color:#f59e0b; color:#111827}
+    button.danger{background:linear-gradient(180deg,#fca5a5,#ef4444); border-color:#ef4444; color:#111827}
+    .hidden{display:none !important}
+    table{width:100%; border-collapse: collapse; overflow:hidden; border-radius:12px; background:#ffffff}
+    thead{background:#f1f5f9}
+    th,td{border-bottom:1px solid #e2e8f0; padding:12px 14px; text-align:left; color:#0f172a}
+    tr:hover td{background:#f8fafc}
+    .statbar{display:flex; gap:14px; align-items:center; flex-wrap:wrap; margin-top:12px}
+    .pill{border:1px solid #1f2937; background:#0b1422; padding:6px 10px; border-radius:999px; font-size:14px}
+    .pill.good{border-color:#bbf7d0; background:#ecfdf5; color:#166534}
+    .pill.bad{border-color:#fecaca; background:#fef2f2; color:#7f1d1d}
+    .quiz-box{margin-top:18px; padding:20px; border-radius:16px; background:#ffffff; border:1px solid #e2e8f0; box-shadow: 0 8px 24px rgba(15,23,42,.05)}
+    .prompt{font-size:16px; margin:6px 0 8px; color:#334155}
+    .answer-line{display:flex; gap:10px; align-items:center; flex-wrap:wrap}
+    input[type="text"]{
+      flex:1 1 420px; padding:16px 18px; border-radius:14px; border:1px solid #cbd5e1; background:#ffffff; color:var(--text);
+      outline:none; font-size:20px; font-weight:600;
+    }
+    .hint{margin-top:8px; color:var(--muted); font-size:14px}
+    .correct-show{margin-top:8px; color:#86efac}
+    .list-col{flex:1 1 360px}
+    .list-col h3{margin:0 0 10px}
+    ul.token{list-style:none; padding:0; margin:0; display:flex; gap:8px; flex-wrap:wrap}
+    ul.token li{padding:6px 10px; border:1px solid #1f2937; border-radius:999px; background:#0b1422}
+    .footer-actions{display:flex; justify-content:center; gap:10px; margin-top:18px}
+    .big{font-size:18px}
+    .center{text-align:center}
+    .title{font-weight:700}
+    .badge{font-size:12px; opacity:.8; margin-left:6px}
+  </style>
+</head>
+<body>
+<header>
+  <h1>단어 암기 프로그램</h1>
+</header>
+<main>
+  <div class="panel">
+    <div class="row">
+      <div class="grow">
+        <label class="title">엑셀 파일 업로드 (좌: 단어 / 우: 뜻[,로 구분])</label>
+        <div class="controls" style="margin-top:8px">
+          <input type="file" id="file" accept=".xlsx,.xls" />
+          <button class="secondary" id="loadSample">샘플 데이터 불러오기</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="tableWrap" class="panel" style="margin-top:16px; background:#0b1220">
+      <div class="row" style="align-items:center; justify-content:space-between; margin-bottom:10px">
+        <div class="title">단어 목록 미리보기</div>
+        <button id="startBtn" class="primary big">퀴즈 시작</button>
+      </div>
+      <div class="muted" id="tableInfo" style="margin-bottom:8px; color:var(--muted)">엑셀을 업로드하면 이곳에 표가 나타납니다.</div>
+      <div style="max-height:360px; overflow:auto; border:1px solid #1f2937; border-radius:12px">
+        <table id="dataTable" class="hidden">
+          <thead>
+            <tr><th style="width:40%">단어</th><th>뜻 (쉼표로 구분)</th></tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div id="modeWrap" class="panel hidden" style="margin-top:16px">
+      <div class="controls">
+        <button id="modeWord" class="secondary">단어 표시</button>
+        <button id="modeFull" class="secondary">뜻 전체 표시</button>
+        <button id="modeOne" class="secondary">뜻 하나씩 표시</button>
+      </div>
+      <div class="statbar">
+        <span class="pill good">정답 <span id="okCnt">0</span></span>
+        <span class="pill bad">오답 <span id="ngCnt">0</span></span>
+      </div>
+      <div id="quizBox" class="quiz-box hidden">
+        <div class="answer-line" style="margin-bottom:12px">
+          <input type="text" id="answer" placeholder="여기에 답을 크게 입력하고 Enter" autocomplete="off" />
+          <button id="skipBtn" class="warn">건너뛰기</button>
+        </div>
+        <p id="prompt" class="prompt"></p>
+        <div id="hint" class="hint" style="font-size:15px; color:#475569"></div>
+        <div id="showCorrect" class="correct-show hidden" style="font-size:16px; font-weight:700; color:#16a34a"></div>
+        <div id="toggleAsCorrectWrap" class="hidden" style="margin-top:8px">
+          <button id="forceCorrectBtn" class="primary">정답으로 처리하기</button>
+        </div>
+      </div>
+        <div id="hint" class="hint"></div>
+        <div id="showCorrect" class="correct-show hidden"></div>
+        <div id="toggleAsCorrectWrap" class="hidden" style="margin-top:8px">
+          <button id="forceCorrectBtn" class="primary">정답으로 처리하기</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="roundResult" class="panel hidden" style="margin-top:16px">
+      <div class="row">
+        <div class="list-col">
+          <h3>정답 (<span id="roundOk">0</span>)</h3>
+          <ul id="okList" class="token"></ul>
+        </div>
+        <div class="list-col">
+          <h3>오답 (<span id="roundNg">0</span>)</h3>
+          <ul id="ngList" class="token"></ul>
+        </div>
+      </div>
+      <div class="footer-actions">
+        <button id="retryAll" class="secondary big">다시하기</button>
+        <button id="retryWrong" class="danger big">오답 다시하기</button>
+      </div>
+    </div>
+
+    <div id="finalWrap" class="panel hidden" style="margin-top:16px">
+      <h2 class="center">축하드립니다!</h2>
+      <div class="row" style="margin-top:8px">
+        <div class="list-col">
+          <h3>완벽하게 암기한 단어 <span class="badge">(clear)</span></h3>
+          <ul id="finalClear" class="token"></ul>
+        </div>
+        <div class="list-col">
+          <h3>오답 단어 <span class="badge">(again)</span></h3>
+          <ul id="finalAgain" class="token"></ul>
+        </div>
+      </div>
+      <div class="footer-actions">
+        <button id="finalRetryAll" class="secondary big">다시하기</button>
+        <button id="finalRetryWrong" class="danger big">오답 다시하기</button>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script>
+/*** 상태 ***/
+let allItems = []; // {word, meanings:[], displayMeanings, label: null|'clear'|'again'}
+let currentMode = null; // 'WORD' | 'DEF_ALL' | 'DEF_ONE'
+let order = []; // index order for current round
+let idx = 0; // pointer
+let firstRoundFinished = false; // 첫 라운드 종료 여부(라벨 부여 여부)
+let thisRoundOk = new Set();
+let thisRoundNg = new Set();
+let isCorrection = false; // 오답 이후 정답 입력 단계
+let correctionItemIndex = null; // 현재 오답 처리 중인 index
+let shownOneMeaning = null; // '뜻 하나씩' 모드에서 현재 표시 중인 뜻
+
+/*** 유틸 ***/
+const $ = (sel)=>document.querySelector(sel);
+function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]] } return a }
+function norm(s){ return (s||'').toString().trim().toLowerCase() }
+function splitMeanings(s){
+  return s.split(/[,，]/).map(v=>v.trim()).filter(v=>v.length>0)
+}
+function meaningsEqual(userInput, correctArr){
+  // 사용자가 , 로 모든 뜻을 입력해야 정답. 순서 무관, 대소문자 무시, 공백 무시
+  const u = splitMeanings(userInput).map(norm)
+  const c = correctArr.map(norm)
+  if(u.length !== c.length) return false
+  // 멀티셋 비교
+  const map = new Map()
+  for(const x of c){ map.set(x, (map.get(x)||0)+1) }
+  for(const x of u){ if(!map.has(x)) return false; const n=map.get(x); if(n===1) map.delete(x); else map.set(x,n-1) }
+  return map.size===0
+}
+
+function renderTable(){
+  const tbody = $('#dataTable tbody');
+  tbody.innerHTML='';
+  allItems.forEach(it=>{
+    const tr=document.createElement('tr');
+    const td1=document.createElement('td'); td1.textContent=it.word;
+    const td2=document.createElement('td'); td2.textContent=it.displayMeanings;
+    tr.appendChild(td1); tr.appendChild(td2); tbody.appendChild(tr)
+  })
+  $('#dataTable').classList.toggle('hidden', allItems.length===0)
+  $('#tableInfo').textContent = allItems.length ? `총 ${allItems.length}개 항목이 로드되었습니다.` : '엑셀을 업로드하면 이곳에 표가 나타납니다.'
+}
+
+function resetRoundState(){
+  order = shuffle([...allItems.keys()])
+  idx = 0
+  thisRoundOk.clear()
+  thisRoundNg.clear()
+  isCorrection = false
+  correctionItemIndex = null
+  shownOneMeaning = null
+  updateCounters()
+}
+
+function updateCounters(){
+  $('#okCnt').textContent = thisRoundOk.size
+  $('#ngCnt').textContent = thisRoundNg.size
+}
+
+function setScreen(section){
+  // section: 'table' | 'mode' | 'result' | 'final'
+  $('#tableWrap').classList.toggle('hidden', section!=='table')
+  $('#modeWrap').classList.toggle('hidden', section!=='mode')
+  $('#roundResult').classList.toggle('hidden', section!=='result')
+  $('#finalWrap').classList.toggle('hidden', section!=='final')
+}
+
+function startMode(mode){
+  currentMode = mode
+  resetRoundState()
+  setScreen('mode')
+  $('#quizBox').classList.remove('hidden')
+  nextItem()
+}
+
+function currentItem(){ return allItems[ order[idx] ] }
+
+function showPromptFor(item){
+  const prompt = $('#prompt')
+  $('#answer').value=''
+  $('#answer').focus()
+  $('#hint').textContent = ''
+  $('#showCorrect').classList.add('hidden')
+  $('#showCorrect').textContent = ''
+  $('#toggleAsCorrectWrap').classList.add('hidden')
+
+  if(currentMode==='WORD'){
+    prompt.innerHTML = `<b>단어</b> → 뜻을 모두 입력하세요`;
+    $('#hint').textContent = `문제: ${item.word} (뜻은 쉼표로 모두 입력, 순서 무관)`
+  } else if(currentMode==='DEF_ALL'){
+    prompt.innerHTML = `<b>뜻 전체</b> → 단어를 입력하세요`;
+    $('#hint').textContent = `문제: ${item.displayMeanings}`
+  } else if(currentMode==='DEF_ONE'){
+    prompt.innerHTML = `<b>뜻 하나</b> → 단어를 입력하세요`;
+    if(!shownOneMeaning){
+      // 랜덤 하나 선택
+      const arr = item.meanings
+      shownOneMeaning = arr[Math.floor(Math.random()*arr.length)]
+    }
+    $('#hint').textContent = `문제: ${shownOneMeaning}`
+  }
+}
+
+function nextItem(){
+  if(idx>=order.length){
+    // 라운드 종료
+    onRoundEnd()
+    return
+  }
+  shownOneMeaning = null
+  const item = currentItem()
+  showPromptFor(item)
+}
+
+function markCorrect(i){ thisRoundOk.add(i); thisRoundNg.delete(i); updateCounters() }
+function markWrong(i){ thisRoundNg.add(i); thisRoundOk.delete(i); updateCounters() }
+
+function revealCorrect(item){
+  const correct = (currentMode==='WORD') ? item.displayMeanings : item.word
+  $('#showCorrect').textContent = `정답: ${correct}`
+  $('#showCorrect').classList.remove('hidden')
+}
+
+function handleSubmit(){
+  const itemIndex = order[idx]
+  const item = allItems[itemIndex]
+  const val = $('#answer').value
+  if(!isCorrection){
+    // 채점
+    let ok=false
+    if(currentMode==='WORD') ok = meaningsEqual(val, item.meanings)
+    else if(currentMode==='DEF_ALL' || currentMode==='DEF_ONE') ok = norm(val)===norm(item.word)
+
+    if(ok){
+      markCorrect(itemIndex)
+      idx++
+      nextItem()
+    } else {
+      // 오답 처리 진입
+      markWrong(itemIndex)
+      revealCorrect(item)
+      isCorrection = true
+      correctionItemIndex = itemIndex
+      $('#toggleAsCorrectWrap').classList.remove('hidden')
+      // 이후엔 사용자가 정답을 정확히 한번 더 입력해야 넘어감. 넘어가도 계속 오답으로 남음(규칙 5-1, 5-2)
+    }
+  } else {
+    // 정답을 정확히 입력하면 다음 문제로 이동 (분류는 유지)
+    let ok=false
+    if(currentMode==='WORD') ok = meaningsEqual(val, item.meanings)
+    else ok = norm(val)===norm(item.word)
+
+    if(ok){
+      isCorrection=false
+      correctionItemIndex=null
+      idx++
+      nextItem()
+    } else {
+      // 여전히 틀렸으면 그대로, 정답 표시 유지
+      revealCorrect(item)
+    }
+  }
+}
+
+function handleSkip(){
+  const i = order[idx]
+  const item = allItems[i]
+  // 규칙 5-2: 오답으로 분류하고 정답을 보여준 뒤, 정답을 한번 입력해야 넘어감. 분류는 계속 오답.
+  markWrong(i)
+  revealCorrect(item)
+  isCorrection = true
+  correctionItemIndex = i
+  $('#toggleAsCorrectWrap').classList.remove('hidden')
+}
+
+function forceMarkAsCorrect(){
+  if(!isCorrection || correctionItemIndex===null) return
+  // 규칙 5-1-1: 오답에서 제거 후 정답으로 분류, 다음 문제로 이동
+  markCorrect(correctionItemIndex)
+  isCorrection=false
+  correctionItemIndex=null
+  idx++
+  nextItem()
+}
+
+function onRoundEnd(){
+  // 결과 렌더링
+  const okList = [...thisRoundOk].map(i=>allItems[i])
+  const ngList = [...thisRoundNg].map(i=>allItems[i])
+
+  $('#okList').innerHTML = okList.map(it=>`<li>${it.word}</li>`).join('')
+  $('#ngList').innerHTML = ngList.map(it=>`<li>${it.word}</li>`).join('')
+  $('#roundOk').textContent = okList.length
+  $('#roundNg').textContent = ngList.length
+
+  // 첫 라운드에만 clear/again 라벨 부여 (규칙 7)
+  if(!firstRoundFinished){
+    okList.forEach(it=>it.label='clear')
+    ngList.forEach(it=>it.label='again')
+    firstRoundFinished = true
+  }
+
+  // 규칙 9: 오답 개수가 0이면 퀴즈 종료(final)
+  if(ngList.length===0){
+    renderFinal()
+    return
+  }
+
+  setScreen('result')
+}
+
+function renderFinal(){
+  const clears = allItems.filter(it=>it.label==='clear').map(it=>it.word)
+  const agains = allItems.filter(it=>it.label==='again').map(it=>it.word)
+  $('#finalClear').innerHTML = clears.map(w=>`<li>${w}</li>`).join('')
+  $('#finalAgain').innerHTML = agains.map(w=>`<li>${w}</li>`).join('')
+  setScreen('final')
+}
+
+function startRoundAll(){
+  setScreen('mode')
+  $('#quizBox').classList.add('hidden')
+  // 모드 선택을 기다림
+}
+
+function startRoundWrongOnly(){
+  // 현재 오답만을 대상으로 새 라운드를 구성: 이때 해당 단어들은 오답에서 제거 (규칙 8-2)
+  const wrongIdxs = [...thisRoundNg]
+  const words = new Set(wrongIdxs.map(i=>allItems[i].word))
+  // 전체 목록에서 해당 단어만 남기고 나머지 제외하여 임시 세션 구성
+  const subset = allItems.filter(it=>words.has(it.word))
+  // 다음 라운드를 위해 order를 subset 기준으로 재구성하되, 전체 allItems를 유지
+  // 단, 구현 단순화를 위해 allItems를 그대로 두고 order만 subset 인덱스로 작성
+  order = []
+  for(let i=0;i<allItems.length;i++){
+    if(words.has(allItems[i].word)) order.push(i)
+  }
+  order = shuffle(order)
+  idx=0
+  thisRoundOk.clear(); thisRoundNg.clear();
+  isCorrection=false; correctionItemIndex=null; shownOneMeaning=null;
+  updateCounters()
+  setScreen('mode')
+  $('#quizBox').classList.remove('hidden')
+  nextItem()
+}
+
+function resetAllLabelsAndBuckets(){
+  allItems.forEach(it=>{ it.label=null })
+  firstRoundFinished=false
+  thisRoundOk.clear(); thisRoundNg.clear(); updateCounters()
+}
+
+/*** 이벤트 바인딩 ***/
+$('#file').addEventListener('change', async (e)=>{
+  const file = e.target.files[0]
+  if(!file) return
+  const data = await file.arrayBuffer()
+  const wb = XLSX.read(data, {type:'array'})
+  const ws = wb.Sheets[wb.SheetNames[0]]
+  const rows = XLSX.utils.sheet_to_json(ws, {header:1, blankrows:false})
+  // 기대 형식: [ [단어, 뜻], ... ]
+  allItems = rows
+    .filter(r=>r && r.length>=1 && r[0])
+    .map(r=>{
+      const word = String(r[0]).trim()
+      const raw = String(r[1]||'').trim()
+      const meanings = splitMeanings(raw)
+      return {word, meanings, displayMeanings: raw, label:null}
+    })
+    .filter(it=>it.word.length>0)
+  renderTable()
+})
+
+$('#loadSample').addEventListener('click',()=>{
+  // 간단 샘플
+  const sample = [
+    {word:'apple', displayMeanings:'사과, 과일', meanings:['사과','과일'], label:null},
+    {word:'run', displayMeanings:'달리다, 운영하다, 작동하다', meanings:['달리다','운영하다','작동하다'], label:null},
+    {word:'transparent', displayMeanings:'투명한, 명백한', meanings:['투명한','명백한'], label:null},
+    {word:'minority', displayMeanings:'소수, 소수 민족', meanings:['소수','소수 민족'], label:null}
+  ]
+  allItems = sample
+  renderTable()
+})
+
+$('#startBtn').addEventListener('click',()=>{
+  if(!allItems.length){ alert('먼저 엑셀을 업로드하거나 샘플을 불러오세요.'); return }
+  startRoundAll()
+})
+
+$('#modeWord').addEventListener('click',()=>startMode('WORD'))
+$('#modeFull').addEventListener('click',()=>startMode('DEF_ALL'))
+$('#modeOne').addEventListener('click',()=>startMode('DEF_ONE'))
+
+$('#answer').addEventListener('keydown',(e)=>{ if(e.key==='Enter'){ handleSubmit() } })
+$('#skipBtn').addEventListener('click', handleSkip)
+$('#forceCorrectBtn').addEventListener('click', forceMarkAsCorrect)
+
+$('#retryAll').addEventListener('click',()=>{
+  // 규칙 8-1: 모든 단어는 정답/오답에서 제거 (즉, 새 라운드)
+  thisRoundOk.clear(); thisRoundNg.clear(); updateCounters();
+  setScreen('mode'); $('#quizBox').classList.add('hidden')
+})
+
+$('#retryWrong').addEventListener('click',()=>{
+  startRoundWrongOnly()
+})
+
+$('#finalRetryAll').addEventListener('click',()=>{
+  // 규칙 10-1: 모든 분류와 수식어 제거 후 3번으로
+  resetAllLabelsAndBuckets()
+  setScreen('mode'); $('#quizBox').classList.add('hidden')
+})
+$('#finalRetryWrong').addEventListener('click',()=>{
+  // 규칙 10-2: 오답 단어들에 한해 새로운 퀴즈를 진행 + 모든 분류/수식어 제거
+  const wrongWords = new Set(allItems.filter(it=>it.label==='again').map(it=>it.word))
+  resetAllLabelsAndBuckets()
+  // order를 wrongWords만으로 구성
+  order = []
+  for(let i=0;i<allItems.length;i++) if(wrongWords.has(allItems[i].word)) order.push(i)
+  if(order.length===0){
+    alert('오답 단어가 없습니다. 전체로 다시 시작합니다.')
+    setScreen('mode'); $('#quizBox').classList.add('hidden')
+    return
+  }
+  order = shuffle(order)
+  idx=0; thisRoundOk.clear(); thisRoundNg.clear(); updateCounters();
+  setScreen('mode')
+  $('#quizBox').classList.remove('hidden')
+  // 모드를 선택해야 하므로 프롬프트는 다음 항목에서 렌더
+  nextItem()
+})
+
+</script>
+</body>
+</html>
