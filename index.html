@@ -22,7 +22,7 @@
       margin:0;
       background:linear-gradient(180deg,var(--bg),#ffffff);
       color:var(--text);
-      font-family: ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,Noto Sans,Apple Color Emoji,Segoe UI Emoji;
+      font-family: ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,Noto Sans;
       line-height:1.6;
       min-height:100dvh;
     }
@@ -30,18 +30,17 @@
       padding:24px 16px;
       text-align:center;
       border-bottom:1px solid #e2e8f0;
-      background:rgba(255,255,255,.8);
+      background:rgba(255,255,255,.85);
       backdrop-filter: blur(8px);
     }
     header h1{
       margin:0;
       font-size:clamp(20px,2.8vw,28px);
-      letter-spacing:0.2px
     }
     main{
       max-width:1100px;
       margin:24px auto;
-      padding:0 16px 48px
+      padding:0 16px 48px;
     }
     .panel{
       background:var(--panel);
@@ -50,19 +49,9 @@
       padding:20px;
       box-shadow:0 8px 24px rgba(15,23,42,.06);
     }
-    .row{
-      display:flex;
-      gap:16px;
-      flex-wrap:wrap
-    }
-    .grow{
-      flex:1 1 360px
-    }
-    .controls{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap
-    }
+    .row{display:flex; gap:16px; flex-wrap:wrap}
+    .grow{flex:1 1 360px}
+    .controls{display:flex; gap:10px; flex-wrap:wrap}
     button{
       border:1px solid #e2e8f0;
       background:linear-gradient(180deg,#ffffff,var(--btn));
@@ -76,12 +65,12 @@
     }
     button:hover{
       transform:translateY(-1px);
-      box-shadow:0 6px 16px rgba(2,6,23,.08)
+      box-shadow:0 6px 16px rgba(2,6,23,.08);
     }
     button.primary{
       background:linear-gradient(180deg,#3b82f6,#2563eb);
       border-color:#1d4ed8;
-      color:#ffffff
+      color:#fff;
     }
     button.secondary{
       background:linear-gradient(180deg,#ffffff,var(--btn2));
@@ -89,41 +78,35 @@
     button.warn{
       background:linear-gradient(180deg,#fde68a,#f59e0b);
       border-color:#f59e0b;
-      color:#111827
+      color:#111827;
     }
     button.danger{
       background:linear-gradient(180deg,#fca5a5,#ef4444);
       border-color:#ef4444;
-      color:#111827
+      color:#111827;
     }
-    .hidden{
-      display:none !important
-    }
+    .hidden{display:none !important}
     table{
       width:100%;
       border-collapse:collapse;
       overflow:hidden;
       border-radius:12px;
-      background:#ffffff
+      background:#fff;
     }
-    thead{
-      background:#f1f5f9
-    }
+    thead{background:#f1f5f9}
     th,td{
       border-bottom:1px solid #e2e8f0;
       padding:12px 14px;
       text-align:left;
-      color:#0f172a
+      color:#0f172a;
     }
-    tr:hover td{
-      background:#f8fafc
-    }
+    tr:hover td{background:#f8fafc}
     .statbar{
       display:flex;
       gap:14px;
       align-items:center;
       flex-wrap:wrap;
-      margin-top:12px
+      margin-top:12px;
     }
     .pill{
       border:1px solid #1f2937;
@@ -131,43 +114,43 @@
       padding:6px 10px;
       border-radius:999px;
       font-size:14px;
-      color:#fff
+      color:#fff;
     }
     .pill.good{
       border-color:#bbf7d0;
       background:#ecfdf5;
-      color:#166534
+      color:#166534;
     }
     .pill.bad{
       border-color:#fecaca;
       background:#fef2f2;
-      color:#7f1d1d
+      color:#7f1d1d;
     }
     .quiz-box{
       margin-top:18px;
       padding:20px;
       border-radius:16px;
-      background:#ffffff;
+      background:#fff;
       border:1px solid #e2e8f0;
-      box-shadow:0 8px 24px rgba(15,23,42,.05)
+      box-shadow:0 8px 24px rgba(15,23,42,.05);
     }
     .prompt{
       font-size:16px;
       margin:6px 0 8px;
-      color:#334155
+      color:#334155;
     }
     .answer-line{
       display:flex;
       gap:10px;
       align-items:center;
-      flex-wrap:wrap
+      flex-wrap:wrap;
     }
     input[type="text"]{
       flex:1 1 420px;
       padding:16px 18px;
       border-radius:14px;
       border:1px solid #cbd5e1;
-      background:#ffffff;
+      background:#fff;
       color:var(--text);
       outline:none;
       font-size:20px;
@@ -176,53 +159,44 @@
     .hint{
       margin-top:8px;
       color:var(--muted);
-      font-size:14px
+      font-size:14px;
     }
     .correct-show{
       margin-top:8px;
-      color:#16a34a
+      color:#16a34a;
+      font-weight:700;
     }
-    .list-col{
-      flex:1 1 360px
-    }
-    .list-col h3{
-      margin:0 0 10px
-    }
+    .list-col{flex:1 1 360px}
+    .list-col h3{margin:0 0 10px}
     ul.token{
       list-style:none;
       padding:0;
       margin:0;
       display:flex;
       gap:8px;
-      flex-wrap:wrap
+      flex-wrap:wrap;
     }
     ul.token li{
       padding:6px 10px;
       border:1px solid #1f2937;
       border-radius:999px;
       background:#0b1422;
-      color:#fff
+      color:#fff;
     }
     .footer-actions{
       display:flex;
       justify-content:center;
       gap:10px;
       margin-top:18px;
-      flex-wrap:wrap
+      flex-wrap:wrap;
     }
-    .big{
-      font-size:18px
-    }
-    .center{
-      text-align:center
-    }
-    .title{
-      font-weight:700
-    }
+    .big{font-size:18px}
+    .center{text-align:center}
+    .title{font-weight:700}
     .badge{
       font-size:12px;
       opacity:.8;
-      margin-left:6px
+      margin-left:6px;
     }
   </style>
 </head>
@@ -260,7 +234,7 @@
     </div>
 
     <div id="modeWrap" class="panel hidden" style="margin-top:16px">
-      <div class="controls">
+      <div id="modeButtons" class="controls">
         <button id="modeWord" class="secondary">단어 표시</button>
         <button id="modeFull" class="secondary">뜻 전체 표시</button>
         <button id="modeOne" class="secondary">뜻 하나씩 표시</button>
@@ -277,8 +251,8 @@
           <button id="skipBtn" class="warn">건너뛰기</button>
         </div>
         <p id="prompt" class="prompt"></p>
-        <div id="hint" class="hint" style="font-size:15px; color:#475569"></div>
-        <div id="showCorrect" class="correct-show hidden" style="font-size:16px; font-weight:700;"></div>
+        <div id="hint" class="hint"></div>
+        <div id="showCorrect" class="correct-show hidden"></div>
         <div id="toggleAsCorrectWrap" class="hidden" style="margin-top:8px">
           <button id="forceCorrectBtn" class="primary">정답으로 처리하기</button>
         </div>
@@ -323,9 +297,8 @@
 </main>
 
 <script>
-/*** 상태 ***/
 let allItems = [];
-let currentMode = null; // 'WORD' | 'DEF_ALL' | 'DEF_ONE'
+let currentMode = null;
 let order = [];
 let idx = 0;
 let firstRoundFinished = false;
@@ -334,29 +307,28 @@ let thisRoundNg = new Set();
 let isCorrection = false;
 let correctionItemIndex = null;
 let shownOneMeaning = null;
-let pendingSubset = null; // null이면 전체, 배열이면 해당 인덱스만 출제
+let pendingSubset = null;
 
-/*** 유틸 ***/
-const $ = (sel)=>document.querySelector(sel);
+const $ = (sel) => document.querySelector(sel);
 
-function shuffle(a){
-  const arr = [...a];
-  for(let i=arr.length-1;i>0;i--){
-    const j=Math.floor(Math.random()*(i+1));
-    [arr[i],arr[j]]=[arr[j],arr[i]];
+function shuffle(arr){
+  const a = [...arr];
+  for(let i=a.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i], a[j]] = [a[j], a[i]];
   }
-  return arr;
+  return a;
 }
 
 function norm(s){
-  return (s || '').toString().trim().toLowerCase();
+  return String(s || '').trim().toLowerCase();
 }
 
 function splitMeanings(s){
   return String(s || '')
     .split(/[,，]/)
     .map(v => v.trim())
-    .filter(v => v.length > 0);
+    .filter(Boolean);
 }
 
 function meaningsEqual(userInput, correctArr){
@@ -374,23 +346,19 @@ function meaningsEqual(userInput, correctArr){
     if(n === 1) map.delete(x);
     else map.set(x, n - 1);
   }
-
   return map.size === 0;
 }
 
-/*** 렌더/상태 ***/
 function renderTable(){
   const tbody = $('#dataTable tbody');
   tbody.innerHTML = '';
 
-  allItems.forEach(it=>{
+  allItems.forEach(it => {
     const tr = document.createElement('tr');
     const td1 = document.createElement('td');
     const td2 = document.createElement('td');
-
     td1.textContent = it.word;
     td2.textContent = it.displayMeanings;
-
     tr.appendChild(td1);
     tr.appendChild(td2);
     tbody.appendChild(tr);
@@ -407,13 +375,6 @@ function updateCounters(){
   $('#ngCnt').textContent = thisRoundNg.size;
 }
 
-function setScreen(section){
-  $('#tableWrap').classList.toggle('hidden', section !== 'table');
-  $('#modeWrap').classList.toggle('hidden', section !== 'mode');
-  $('#roundResult').classList.toggle('hidden', section !== 'result');
-  $('#finalWrap').classList.toggle('hidden', section !== 'final');
-}
-
 function clearQuizVisuals(){
   $('#answer').value = '';
   $('#prompt').textContent = '';
@@ -423,7 +384,7 @@ function clearQuizVisuals(){
   $('#toggleAsCorrectWrap').classList.add('hidden');
 }
 
-function clearQuizState(){
+function clearRoundState(){
   idx = 0;
   order = [];
   thisRoundOk.clear();
@@ -447,36 +408,44 @@ function resetRoundState(){
 }
 
 function resetAllLabelsAndBuckets(){
-  allItems.forEach(it => { it.label = null; });
+  allItems.forEach(it => it.label = null);
   firstRoundFinished = false;
   thisRoundOk.clear();
   thisRoundNg.clear();
   updateCounters();
 }
 
-function startRoundSelectionOnly(){
-  clearQuizState();
-  setScreen('mode');
+function showSection(section){
+  $('#tableWrap').classList.toggle('hidden', section !== 'table');
+  $('#modeWrap').classList.toggle('hidden', section !== 'mode');
+  $('#roundResult').classList.toggle('hidden', section !== 'result');
+  $('#finalWrap').classList.toggle('hidden', section !== 'final');
+}
+
+function showModeSelector(){
+  clearRoundState();
+  showSection('mode');
+  $('#modeButtons').classList.remove('hidden');
   $('#quizBox').classList.add('hidden');
 }
 
-function restartWithCurrentMode(){
-  clearQuizState();
-  setScreen('mode');
-
-  if(currentMode){
-    $('#quizBox').classList.remove('hidden');
-    resetRoundState();
-    nextItem();
-  } else {
-    $('#quizBox').classList.add('hidden');
-  }
-}
-
-function startMode(mode){
+function startQuizWithMode(mode){
   currentMode = mode;
   resetRoundState();
-  setScreen('mode');
+  showSection('mode');
+  $('#modeButtons').classList.remove('hidden');
+  $('#quizBox').classList.remove('hidden');
+  nextItem();
+}
+
+function restartCurrentModeImmediately(){
+  if(!currentMode){
+    showModeSelector();
+    return;
+  }
+  resetRoundState();
+  showSection('mode');
+  $('#modeButtons').classList.add('hidden');
   $('#quizBox').classList.remove('hidden');
   nextItem();
 }
@@ -516,7 +485,6 @@ function nextItem(){
     onRoundEnd();
     return;
   }
-
   shownOneMeaning = null;
   showPromptFor(currentItem());
 }
@@ -534,7 +502,7 @@ function markWrong(i){
 }
 
 function revealCorrect(item){
-  const correct = (currentMode === 'WORD') ? item.displayMeanings : item.word;
+  const correct = currentMode === 'WORD' ? item.displayMeanings : item.word;
   $('#showCorrect').textContent = `정답: ${correct}`;
   $('#showCorrect').classList.remove('hidden');
 }
@@ -549,7 +517,7 @@ function handleSubmit(){
 
     if(currentMode === 'WORD'){
       ok = meaningsEqual(val, item.meanings);
-    } else if(currentMode === 'DEF_ALL' || currentMode === 'DEF_ONE'){
+    } else {
       ok = norm(val) === norm(item.word);
     }
 
@@ -587,7 +555,6 @@ function handleSubmit(){
 function handleSkip(){
   const i = order[idx];
   const item = allItems[i];
-
   markWrong(i);
   revealCorrect(item);
   isCorrection = true;
@@ -597,7 +564,6 @@ function handleSkip(){
 
 function forceMarkAsCorrect(){
   if(!isCorrection || correctionItemIndex === null) return;
-
   markCorrect(correctionItemIndex);
   isCorrection = false;
   correctionItemIndex = null;
@@ -625,7 +591,7 @@ function onRoundEnd(){
     return;
   }
 
-  setScreen('result');
+  showSection('result');
 }
 
 function renderFinal(){
@@ -634,30 +600,25 @@ function renderFinal(){
 
   $('#finalClear').innerHTML = clears.map(w => `<li>${w}</li>`).join('');
   $('#finalAgain').innerHTML = agains.map(w => `<li>${w}</li>`).join('');
-
-  setScreen('final');
+  showSection('final');
 }
 
-/*** 파일 로드 ***/
-$('#file').addEventListener('change', async (e)=>{
+$('#file').addEventListener('change', async (e) => {
   const file = e.target.files[0];
   if(!file) return;
 
   const data = await file.arrayBuffer();
-  const wb = XLSX.read(data, {type:'array'});
+  const wb = XLSX.read(data, { type: 'array' });
   const ws = wb.Sheets[wb.SheetNames[0]];
-  const rows = XLSX.utils.sheet_to_json(ws, {header:1, blankrows:false});
+  const rows = XLSX.utils.sheet_to_json(ws, { header: 1, blankrows: false });
 
   allItems = rows
     .filter((r, idx) => {
       if(!r || r.length < 2) return false;
-
       const left = String(r[0] ?? '').trim();
       const right = String(r[1] ?? '').trim();
-
       if(!left || !right) return false;
       if(idx === 0 && (left === '단어' || left.toLowerCase() === 'word')) return false;
-
       return true;
     })
     .map(r => {
@@ -666,17 +627,17 @@ $('#file').addEventListener('change', async (e)=>{
       const meanings = splitMeanings(raw);
       return { word, meanings, displayMeanings: raw, label: null };
     })
-    .filter(it => it.word.length > 0 && it.meanings.length > 0);
+    .filter(it => it.word && it.meanings.length > 0);
 
   pendingSubset = null;
   currentMode = null;
   resetAllLabelsAndBuckets();
-  clearQuizState();
+  clearRoundState();
   renderTable();
-  setScreen('table');
+  showSection('table');
 });
 
-$('#loadSample').addEventListener('click', ()=>{
+$('#loadSample').addEventListener('click', () => {
   allItems = [
     {word:'apple', displayMeanings:'사과, 과일', meanings:['사과','과일'], label:null},
     {word:'run', displayMeanings:'달리다, 운영하다, 작동하다', meanings:['달리다','운영하다','작동하다'], label:null},
@@ -687,56 +648,52 @@ $('#loadSample').addEventListener('click', ()=>{
   pendingSubset = null;
   currentMode = null;
   resetAllLabelsAndBuckets();
-  clearQuizState();
+  clearRoundState();
   renderTable();
-  setScreen('table');
+  showSection('table');
 });
 
-/*** 시작/모드 ***/
-$('#startBtn').addEventListener('click', ()=>{
+$('#startBtn').addEventListener('click', () => {
   if(!allItems.length){
     alert('먼저 엑셀을 업로드하거나 샘플을 불러오세요.');
     return;
   }
   pendingSubset = null;
-  startRoundSelectionOnly();
+  showModeSelector();
 });
 
-$('#modeWord').addEventListener('click', ()=>startMode('WORD'));
-$('#modeFull').addEventListener('click', ()=>startMode('DEF_ALL'));
-$('#modeOne').addEventListener('click', ()=>startMode('DEF_ONE'));
+$('#modeWord').addEventListener('click', () => startQuizWithMode('WORD'));
+$('#modeFull').addEventListener('click', () => startQuizWithMode('DEF_ALL'));
+$('#modeOne').addEventListener('click', () => startQuizWithMode('DEF_ONE'));
 
-/*** 입력 ***/
-$('#answer').addEventListener('keydown', (e)=>{
+$('#answer').addEventListener('keydown', (e) => {
   if(e.key === 'Enter') handleSubmit();
 });
 
 $('#skipBtn').addEventListener('click', handleSkip);
 $('#forceCorrectBtn').addEventListener('click', forceMarkAsCorrect);
 
-/*** 결과 화면 버튼 ***/
-$('#retryAll').addEventListener('click', ()=>{
+$('#retryAll').addEventListener('click', () => {
   pendingSubset = null;
-  startRoundSelectionOnly();
+  showModeSelector();
 });
 
-$('#retryWrong').addEventListener('click', ()=>{
+$('#retryWrong').addEventListener('click', () => {
   pendingSubset = [...thisRoundNg];
   if(!pendingSubset.length){
     alert('오답 단어가 없습니다.');
     return;
   }
-  restartWithCurrentMode();
+  restartCurrentModeImmediately();
 });
 
-/*** 최종 화면 버튼 ***/
-$('#finalRetryAll').addEventListener('click', ()=>{
+$('#finalRetryAll').addEventListener('click', () => {
   resetAllLabelsAndBuckets();
   pendingSubset = null;
-  startRoundSelectionOnly();
+  showModeSelector();
 });
 
-$('#finalRetryWrong').addEventListener('click', ()=>{
+$('#finalRetryWrong').addEventListener('click', () => {
   const wrongIdxs = allItems
     .map((it, i) => it.label === 'again' ? i : -1)
     .filter(i => i !== -1);
@@ -746,12 +703,12 @@ $('#finalRetryWrong').addEventListener('click', ()=>{
   if(!wrongIdxs.length){
     alert('오답 단어가 없습니다. 전체로 다시 시작합니다.');
     pendingSubset = null;
-    startRoundSelectionOnly();
+    showModeSelector();
     return;
   }
 
   pendingSubset = wrongIdxs;
-  restartWithCurrentMode();
+  restartCurrentModeImmediately();
 });
 </script>
 </body>
