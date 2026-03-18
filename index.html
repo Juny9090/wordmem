@@ -14,67 +14,216 @@
       --accent:#2563eb;
       --danger:#ef4444;
       --warn:#f59e0b;
-      --card:#ffffff;
       --btn:#eef2f7;
       --btn2:#e2e8f0;
     }
     *{box-sizing:border-box}
     body{
-      margin:0; background:linear-gradient(180deg,var(--bg),#ffffff); color:var(--text);
+      margin:0;
+      background:linear-gradient(180deg,var(--bg),#ffffff);
+      color:var(--text);
       font-family: ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,Noto Sans,Apple Color Emoji,Segoe UI Emoji;
-      line-height:1.6; min-height:100dvh;
+      line-height:1.6;
+      min-height:100dvh;
     }
     header{
-      padding:24px 16px; text-align:center; border-bottom:1px solid #e2e8f0;
-      background:rgba(255,255,255,.8); backdrop-filter: blur(8px);
+      padding:24px 16px;
+      text-align:center;
+      border-bottom:1px solid #e2e8f0;
+      background:rgba(255,255,255,.8);
+      backdrop-filter: blur(8px);
     }
-    header h1{margin:0;font-size:clamp(20px,2.8vw,28px); letter-spacing:0.2px}
-    main{max-width:1100px;margin:24px auto; padding:0 16px 48px}
+    header h1{
+      margin:0;
+      font-size:clamp(20px,2.8vw,28px);
+      letter-spacing:0.2px
+    }
+    main{
+      max-width:1100px;
+      margin:24px auto;
+      padding:0 16px 48px
+    }
     .panel{
       background:var(--panel);
-      border:1px solid #e2e8f0; border-radius:16px; padding:20px; box-shadow: 0 8px 24px rgba(15,23,42,.06);
+      border:1px solid #e2e8f0;
+      border-radius:16px;
+      padding:20px;
+      box-shadow:0 8px 24px rgba(15,23,42,.06);
     }
-    .row{display:flex; gap:16px; flex-wrap:wrap}
-    .grow{flex:1 1 360px}
-    .controls{display:flex; gap:10px; flex-wrap:wrap}
+    .row{
+      display:flex;
+      gap:16px;
+      flex-wrap:wrap
+    }
+    .grow{
+      flex:1 1 360px
+    }
+    .controls{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap
+    }
     button{
-      border:1px solid #e2e8f0; background:linear-gradient(180deg,#ffffff,var(--btn));
-      color:var(--text); padding:12px 16px; border-radius:12px; cursor:pointer; font-weight:700;
-      transition:.2s transform, .2s box-shadow, .2s background;
-      box-shadow: 0 2px 8px rgba(2,6,23,.05);
+      border:1px solid #e2e8f0;
+      background:linear-gradient(180deg,#ffffff,var(--btn));
+      color:var(--text);
+      padding:12px 16px;
+      border-radius:12px;
+      cursor:pointer;
+      font-weight:700;
+      transition:.2s transform,.2s box-shadow,.2s background;
+      box-shadow:0 2px 8px rgba(2,6,23,.05);
     }
-    button:hover{transform: translateY(-1px); box-shadow: 0 6px 16px rgba(2,6,23,.08)}
-    button.primary{background:linear-gradient(180deg,#3b82f6,#2563eb); border-color:#1d4ed8; color:#ffffff}
-    button.secondary{background:linear-gradient(180deg,#ffffff,var(--btn2));}
-    button.warn{background:linear-gradient(180deg,#fde68a,#f59e0b); border-color:#f59e0b; color:#111827}
-    button.danger{background:linear-gradient(180deg,#fca5a5,#ef4444); border-color:#ef4444; color:#111827}
-    .hidden{display:none !important}
-    table{width:100%; border-collapse: collapse; overflow:hidden; border-radius:12px; background:#ffffff}
-    thead{background:#f1f5f9}
-    th,td{border-bottom:1px solid #e2e8f0; padding:12px 14px; text-align:left; color:#0f172a}
-    tr:hover td{background:#f8fafc}
-    .statbar{display:flex; gap:14px; align-items:center; flex-wrap:wrap; margin-top:12px}
-    .pill{border:1px solid #1f2937; background:#0b1422; padding:6px 10px; border-radius:999px; font-size:14px; color:#fff}
-    .pill.good{border-color:#bbf7d0; background:#ecfdf5; color:#166534}
-    .pill.bad{border-color:#fecaca; background:#fef2f2; color:#7f1d1d}
-    .quiz-box{margin-top:18px; padding:20px; border-radius:16px; background:#ffffff; border:1px solid #e2e8f0; box-shadow: 0 8px 24px rgba(15,23,42,.05)}
-    .prompt{font-size:16px; margin:6px 0 8px; color:#334155}
-    .answer-line{display:flex; gap:10px; align-items:center; flex-wrap:wrap}
+    button:hover{
+      transform:translateY(-1px);
+      box-shadow:0 6px 16px rgba(2,6,23,.08)
+    }
+    button.primary{
+      background:linear-gradient(180deg,#3b82f6,#2563eb);
+      border-color:#1d4ed8;
+      color:#ffffff
+    }
+    button.secondary{
+      background:linear-gradient(180deg,#ffffff,var(--btn2));
+    }
+    button.warn{
+      background:linear-gradient(180deg,#fde68a,#f59e0b);
+      border-color:#f59e0b;
+      color:#111827
+    }
+    button.danger{
+      background:linear-gradient(180deg,#fca5a5,#ef4444);
+      border-color:#ef4444;
+      color:#111827
+    }
+    .hidden{
+      display:none !important
+    }
+    table{
+      width:100%;
+      border-collapse:collapse;
+      overflow:hidden;
+      border-radius:12px;
+      background:#ffffff
+    }
+    thead{
+      background:#f1f5f9
+    }
+    th,td{
+      border-bottom:1px solid #e2e8f0;
+      padding:12px 14px;
+      text-align:left;
+      color:#0f172a
+    }
+    tr:hover td{
+      background:#f8fafc
+    }
+    .statbar{
+      display:flex;
+      gap:14px;
+      align-items:center;
+      flex-wrap:wrap;
+      margin-top:12px
+    }
+    .pill{
+      border:1px solid #1f2937;
+      background:#0b1422;
+      padding:6px 10px;
+      border-radius:999px;
+      font-size:14px;
+      color:#fff
+    }
+    .pill.good{
+      border-color:#bbf7d0;
+      background:#ecfdf5;
+      color:#166534
+    }
+    .pill.bad{
+      border-color:#fecaca;
+      background:#fef2f2;
+      color:#7f1d1d
+    }
+    .quiz-box{
+      margin-top:18px;
+      padding:20px;
+      border-radius:16px;
+      background:#ffffff;
+      border:1px solid #e2e8f0;
+      box-shadow:0 8px 24px rgba(15,23,42,.05)
+    }
+    .prompt{
+      font-size:16px;
+      margin:6px 0 8px;
+      color:#334155
+    }
+    .answer-line{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      flex-wrap:wrap
+    }
     input[type="text"]{
-      flex:1 1 420px; padding:16px 18px; border-radius:14px; border:1px solid #cbd5e1; background:#ffffff; color:var(--text);
-      outline:none; font-size:20px; font-weight:600;
+      flex:1 1 420px;
+      padding:16px 18px;
+      border-radius:14px;
+      border:1px solid #cbd5e1;
+      background:#ffffff;
+      color:var(--text);
+      outline:none;
+      font-size:20px;
+      font-weight:600;
     }
-    .hint{margin-top:8px; color:var(--muted); font-size:14px}
-    .correct-show{margin-top:8px; color:#16a34a}
-    .list-col{flex:1 1 360px}
-    .list-col h3{margin:0 0 10px}
-    ul.token{list-style:none; padding:0; margin:0; display:flex; gap:8px; flex-wrap:wrap}
-    ul.token li{padding:6px 10px; border:1px solid #1f2937; border-radius:999px; background:#0b1422; color:#fff}
-    .footer-actions{display:flex; justify-content:center; gap:10px; margin-top:18px; flex-wrap:wrap}
-    .big{font-size:18px}
-    .center{text-align:center}
-    .title{font-weight:700}
-    .badge{font-size:12px; opacity:.8; margin-left:6px}
+    .hint{
+      margin-top:8px;
+      color:var(--muted);
+      font-size:14px
+    }
+    .correct-show{
+      margin-top:8px;
+      color:#16a34a
+    }
+    .list-col{
+      flex:1 1 360px
+    }
+    .list-col h3{
+      margin:0 0 10px
+    }
+    ul.token{
+      list-style:none;
+      padding:0;
+      margin:0;
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap
+    }
+    ul.token li{
+      padding:6px 10px;
+      border:1px solid #1f2937;
+      border-radius:999px;
+      background:#0b1422;
+      color:#fff
+    }
+    .footer-actions{
+      display:flex;
+      justify-content:center;
+      gap:10px;
+      margin-top:18px;
+      flex-wrap:wrap
+    }
+    .big{
+      font-size:18px
+    }
+    .center{
+      text-align:center
+    }
+    .title{
+      font-weight:700
+    }
+    .badge{
+      font-size:12px;
+      opacity:.8;
+      margin-left:6px
+    }
   </style>
 </head>
 <body>
@@ -175,7 +324,7 @@
 
 <script>
 /*** 상태 ***/
-let allItems = []; // {word, meanings:[], displayMeanings, label: null|'clear'|'again'}
+let allItems = [];
 let currentMode = null; // 'WORD' | 'DEF_ALL' | 'DEF_ONE'
 let order = [];
 let idx = 0;
@@ -200,32 +349,36 @@ function shuffle(a){
 }
 
 function norm(s){
-  return (s||'').toString().trim().toLowerCase();
+  return (s || '').toString().trim().toLowerCase();
 }
 
 function splitMeanings(s){
   return String(s || '')
     .split(/[,，]/)
-    .map(v=>v.trim())
-    .filter(v=>v.length>0);
+    .map(v => v.trim())
+    .filter(v => v.length > 0);
 }
 
 function meaningsEqual(userInput, correctArr){
   const u = splitMeanings(userInput).map(norm);
   const c = correctArr.map(norm);
+
   if(u.length !== c.length) return false;
 
   const map = new Map();
-  for(const x of c) map.set(x, (map.get(x)||0)+1);
+  for(const x of c) map.set(x, (map.get(x) || 0) + 1);
+
   for(const x of u){
     if(!map.has(x)) return false;
     const n = map.get(x);
-    if(n===1) map.delete(x);
-    else map.set(x, n-1);
+    if(n === 1) map.delete(x);
+    else map.set(x, n - 1);
   }
-  return map.size===0;
+
+  return map.size === 0;
 }
 
+/*** 렌더/상태 ***/
 function renderTable(){
   const tbody = $('#dataTable tbody');
   tbody.innerHTML = '';
@@ -234,14 +387,16 @@ function renderTable(){
     const tr = document.createElement('tr');
     const td1 = document.createElement('td');
     const td2 = document.createElement('td');
+
     td1.textContent = it.word;
     td2.textContent = it.displayMeanings;
+
     tr.appendChild(td1);
     tr.appendChild(td2);
     tbody.appendChild(tr);
   });
 
-  $('#dataTable').classList.toggle('hidden', allItems.length===0);
+  $('#dataTable').classList.toggle('hidden', allItems.length === 0);
   $('#tableInfo').textContent = allItems.length
     ? `총 ${allItems.length}개 항목이 로드되었습니다.`
     : '엑셀을 업로드하면 이곳에 표가 나타납니다.';
@@ -253,10 +408,10 @@ function updateCounters(){
 }
 
 function setScreen(section){
-  $('#tableWrap').classList.toggle('hidden', section!=='table');
-  $('#modeWrap').classList.toggle('hidden', section!=='mode');
-  $('#roundResult').classList.toggle('hidden', section!=='result');
-  $('#finalWrap').classList.toggle('hidden', section!=='final');
+  $('#tableWrap').classList.toggle('hidden', section !== 'table');
+  $('#modeWrap').classList.toggle('hidden', section !== 'mode');
+  $('#roundResult').classList.toggle('hidden', section !== 'result');
+  $('#finalWrap').classList.toggle('hidden', section !== 'final');
 }
 
 function clearQuizVisuals(){
@@ -292,7 +447,7 @@ function resetRoundState(){
 }
 
 function resetAllLabelsAndBuckets(){
-  allItems.forEach(it=>{ it.label = null; });
+  allItems.forEach(it => { it.label = null; });
   firstRoundFinished = false;
   thisRoundOk.clear();
   thisRoundNg.clear();
@@ -303,6 +458,19 @@ function startRoundSelectionOnly(){
   clearQuizState();
   setScreen('mode');
   $('#quizBox').classList.add('hidden');
+}
+
+function restartWithCurrentMode(){
+  clearQuizState();
+  setScreen('mode');
+
+  if(currentMode){
+    $('#quizBox').classList.remove('hidden');
+    resetRoundState();
+    nextItem();
+  } else {
+    $('#quizBox').classList.add('hidden');
+  }
 }
 
 function startMode(mode){
@@ -329,13 +497,13 @@ function showPromptFor(item){
   if(currentMode === 'WORD'){
     prompt.innerHTML = `<b>단어</b> → 뜻을 모두 입력하세요`;
     hint.textContent = `문제: ${item.word} (뜻은 쉼표로 모두 입력, 순서 무관)`;
-  }else if(currentMode === 'DEF_ALL'){
+  } else if(currentMode === 'DEF_ALL'){
     prompt.innerHTML = `<b>뜻 전체</b> → 단어를 입력하세요`;
     hint.textContent = `문제: ${item.displayMeanings}`;
-  }else if(currentMode === 'DEF_ONE'){
+  } else if(currentMode === 'DEF_ONE'){
     prompt.innerHTML = `<b>뜻 하나</b> → 단어를 입력하세요`;
     if(!shownOneMeaning){
-      shownOneMeaning = item.meanings[Math.floor(Math.random()*item.meanings.length)];
+      shownOneMeaning = item.meanings[Math.floor(Math.random() * item.meanings.length)];
     }
     hint.textContent = `문제: ${shownOneMeaning}`;
   }
@@ -348,6 +516,7 @@ function nextItem(){
     onRoundEnd();
     return;
   }
+
   shownOneMeaning = null;
   showPromptFor(currentItem());
 }
@@ -380,7 +549,7 @@ function handleSubmit(){
 
     if(currentMode === 'WORD'){
       ok = meaningsEqual(val, item.meanings);
-    }else if(currentMode === 'DEF_ALL' || currentMode === 'DEF_ONE'){
+    } else if(currentMode === 'DEF_ALL' || currentMode === 'DEF_ONE'){
       ok = norm(val) === norm(item.word);
     }
 
@@ -388,19 +557,19 @@ function handleSubmit(){
       markCorrect(itemIndex);
       idx++;
       nextItem();
-    }else{
+    } else {
       markWrong(itemIndex);
       revealCorrect(item);
       isCorrection = true;
       correctionItemIndex = itemIndex;
       $('#toggleAsCorrectWrap').classList.remove('hidden');
     }
-  }else{
+  } else {
     let ok = false;
 
     if(currentMode === 'WORD'){
       ok = meaningsEqual(val, item.meanings);
-    }else{
+    } else {
       ok = norm(val) === norm(item.word);
     }
 
@@ -409,7 +578,7 @@ function handleSubmit(){
       correctionItemIndex = null;
       idx++;
       nextItem();
-    }else{
+    } else {
       revealCorrect(item);
     }
   }
@@ -418,6 +587,7 @@ function handleSubmit(){
 function handleSkip(){
   const i = order[idx];
   const item = allItems[i];
+
   markWrong(i);
   revealCorrect(item);
   isCorrection = true;
@@ -427,6 +597,7 @@ function handleSkip(){
 
 function forceMarkAsCorrect(){
   if(!isCorrection || correctionItemIndex === null) return;
+
   markCorrect(correctionItemIndex);
   isCorrection = false;
   correctionItemIndex = null;
@@ -435,17 +606,17 @@ function forceMarkAsCorrect(){
 }
 
 function onRoundEnd(){
-  const okList = [...thisRoundOk].map(i=>allItems[i]);
-  const ngList = [...thisRoundNg].map(i=>allItems[i]);
+  const okList = [...thisRoundOk].map(i => allItems[i]);
+  const ngList = [...thisRoundNg].map(i => allItems[i]);
 
-  $('#okList').innerHTML = okList.map(it=>`<li>${it.word}</li>`).join('');
-  $('#ngList').innerHTML = ngList.map(it=>`<li>${it.word}</li>`).join('');
+  $('#okList').innerHTML = okList.map(it => `<li>${it.word}</li>`).join('');
+  $('#ngList').innerHTML = ngList.map(it => `<li>${it.word}</li>`).join('');
   $('#roundOk').textContent = okList.length;
   $('#roundNg').textContent = ngList.length;
 
   if(!firstRoundFinished){
-    okList.forEach(it=>it.label='clear');
-    ngList.forEach(it=>it.label='again');
+    okList.forEach(it => it.label = 'clear');
+    ngList.forEach(it => it.label = 'again');
     firstRoundFinished = true;
   }
 
@@ -458,16 +629,16 @@ function onRoundEnd(){
 }
 
 function renderFinal(){
-  const clears = allItems.filter(it=>it.label==='clear').map(it=>it.word);
-  const agains = allItems.filter(it=>it.label==='again').map(it=>it.word);
+  const clears = allItems.filter(it => it.label === 'clear').map(it => it.word);
+  const agains = allItems.filter(it => it.label === 'again').map(it => it.word);
 
-  $('#finalClear').innerHTML = clears.map(w=>`<li>${w}</li>`).join('');
-  $('#finalAgain').innerHTML = agains.map(w=>`<li>${w}</li>`).join('');
+  $('#finalClear').innerHTML = clears.map(w => `<li>${w}</li>`).join('');
+  $('#finalAgain').innerHTML = agains.map(w => `<li>${w}</li>`).join('');
 
   setScreen('final');
 }
 
-/*** 이벤트 바인딩 ***/
+/*** 파일 로드 ***/
 $('#file').addEventListener('change', async (e)=>{
   const file = e.target.files[0];
   if(!file) return;
@@ -480,13 +651,16 @@ $('#file').addEventListener('change', async (e)=>{
   allItems = rows
     .filter((r, idx) => {
       if(!r || r.length < 2) return false;
+
       const left = String(r[0] ?? '').trim();
       const right = String(r[1] ?? '').trim();
+
       if(!left || !right) return false;
       if(idx === 0 && (left === '단어' || left.toLowerCase() === 'word')) return false;
+
       return true;
     })
-    .map(r=>{
+    .map(r => {
       const word = String(r[0]).trim();
       const raw = String(r[1]).trim();
       const meanings = splitMeanings(raw);
@@ -502,7 +676,7 @@ $('#file').addEventListener('change', async (e)=>{
   setScreen('table');
 });
 
-$('#loadSample').addEventListener('click',()=>{
+$('#loadSample').addEventListener('click', ()=>{
   allItems = [
     {word:'apple', displayMeanings:'사과, 과일', meanings:['사과','과일'], label:null},
     {word:'run', displayMeanings:'달리다, 운영하다, 작동하다', meanings:['달리다','운영하다','작동하다'], label:null},
@@ -518,7 +692,8 @@ $('#loadSample').addEventListener('click',()=>{
   setScreen('table');
 });
 
-$('#startBtn').addEventListener('click',()=>{
+/*** 시작/모드 ***/
+$('#startBtn').addEventListener('click', ()=>{
   if(!allItems.length){
     alert('먼저 엑셀을 업로드하거나 샘플을 불러오세요.');
     return;
@@ -527,38 +702,41 @@ $('#startBtn').addEventListener('click',()=>{
   startRoundSelectionOnly();
 });
 
-$('#modeWord').addEventListener('click',()=>startMode('WORD'));
-$('#modeFull').addEventListener('click',()=>startMode('DEF_ALL'));
-$('#modeOne').addEventListener('click',()=>startMode('DEF_ONE'));
+$('#modeWord').addEventListener('click', ()=>startMode('WORD'));
+$('#modeFull').addEventListener('click', ()=>startMode('DEF_ALL'));
+$('#modeOne').addEventListener('click', ()=>startMode('DEF_ONE'));
 
-$('#answer').addEventListener('keydown',(e)=>{
+/*** 입력 ***/
+$('#answer').addEventListener('keydown', (e)=>{
   if(e.key === 'Enter') handleSubmit();
 });
 
 $('#skipBtn').addEventListener('click', handleSkip);
 $('#forceCorrectBtn').addEventListener('click', forceMarkAsCorrect);
 
-$('#retryAll').addEventListener('click',()=>{
+/*** 결과 화면 버튼 ***/
+$('#retryAll').addEventListener('click', ()=>{
   pendingSubset = null;
   startRoundSelectionOnly();
 });
 
-$('#retryWrong').addEventListener('click',()=>{
+$('#retryWrong').addEventListener('click', ()=>{
   pendingSubset = [...thisRoundNg];
   if(!pendingSubset.length){
     alert('오답 단어가 없습니다.');
     return;
   }
-  startRoundSelectionOnly();
+  restartWithCurrentMode();
 });
 
-$('#finalRetryAll').addEventListener('click',()=>{
+/*** 최종 화면 버튼 ***/
+$('#finalRetryAll').addEventListener('click', ()=>{
   resetAllLabelsAndBuckets();
   pendingSubset = null;
   startRoundSelectionOnly();
 });
 
-$('#finalRetryWrong').addEventListener('click',()=>{
+$('#finalRetryWrong').addEventListener('click', ()=>{
   const wrongIdxs = allItems
     .map((it, i) => it.label === 'again' ? i : -1)
     .filter(i => i !== -1);
@@ -568,11 +746,12 @@ $('#finalRetryWrong').addEventListener('click',()=>{
   if(!wrongIdxs.length){
     alert('오답 단어가 없습니다. 전체로 다시 시작합니다.');
     pendingSubset = null;
-  }else{
-    pendingSubset = wrongIdxs;
+    startRoundSelectionOnly();
+    return;
   }
 
-  startRoundSelectionOnly();
+  pendingSubset = wrongIdxs;
+  restartWithCurrentMode();
 });
 </script>
 </body>
